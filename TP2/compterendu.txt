@@ -1,0 +1,77 @@
+GPG utilise de la cryptographie asymétrique et symétrique. Chaque utilisateur dispose
+d’une bi-clef publique/privée pour l’authentification, et d’une autre bi-clef pour le chiffrement.
+(Pourquoi ?)
+    - Pour l'authentification la clé privée sert à chiffrer le hacher du message qui est envoyé au destinataire, ce dernier déchiffre ce qu'il
+    vient de recevoire avec la clé publique de l'expéditeur. 
+    - Pour le chiffrement la clé publique du destinataire sert à l'expéditeur pour chiffrer le message. Le destinataire utilise sa clé privée 
+    pour déchiffrer le message.
+
+Exercice 1
+
+En choisissant de créer une bi-clef DSA (D) pour la signature, et une bi-clef ElGamal (g)
+pour le chiffrement.
+
+Quelle taille de clef choisissez-vous ? pour quelles raisons ?
+    - 3048 car j'ai choisi une durée de validité d'un an, le niveau de sécurité des tailles de clé inférieur à 3072 est trop faible
+    pour cette durée de validité.
+
+A quoi servent les données qui vous sont demandées ?
+    - Le real name et l'email servent à construire notre identité, la passphrase sert à généré la clé de déchiffrement car les clé généré 
+    par gpg2 sont stocké chiffré.
+
+Pourquoi est-ce que le processus de génération des clefs est lent ?
+    - La durée du processus dépend de l'entropie présent sur la machine. En effet au fur et à mesure de l'utilisation d'un machine, celle-ci
+    génére de l'entropie qui est utilisé pour avoir plus d'aléatoire pendant la génération. Du coup si la machine vient d'être allumé il y a très 
+    peu d'entropie et donc la génération est plus lente.
+
+Lisez les informations affichées par gpg2 lors de la génération des bi-clefs et expliquez-les.
+
+    - Aucune informations n'a été affichées durant la génération des bi-clefs.
+
+Exercice 2
+
+Que signifient les données affichées ?
+
+gpg> showpref
+[ultimate] (1). crochemore <crochemore.valentin@gmail.com>
+     Cipher: AES256, AES192, AES, CAST5, 3DES, IDEA
+     Digest: SHA256, SHA1, SHA384, SHA512, SHA224
+     Compression: ZLIB, BZIP2, ZIP, Uncompressed
+     Features: MDC, Keyserver no-modify
+
+     - Ce sont les algorithme supporté pour ma clé. Cipher sont les algorithme de chiffrement, Digest sont les algorithme de hachage.
+
+Exécutez ensuite la commande check. Que pouvez-vous en déduire sur la forme de diffusion des clefs ?
+
+gpg> check
+uid  crochemore <crochemore.valentin@gmail.com>
+sig!3        28E0F584 2016-11-14  [self-signature]
+
+    - La clé est de base auto-signé, la diffusion se fait sur un système de confiance, les clés sont signé par des personnes qui garantissent 
+    de la confiance de cette clés au sein de son propre réseau.
+
+Exercice 3
+
+Expliquez ce qu’est un certificat de révocation. 
+
+    - Il sert à rendre la clé invalide et à prévenir les autres utilisateur que la clé est invalide.
+
+Que devriez-vous faire maintenant de ce certificat ?
+
+    - il faut le caché pour éviter que quelqu'un puisse s'en servir afin de révoquer votre clé.
+
+Exercice 4
+
+Lorsque vous importez des clefs publiques comme ci-dessous, vous n’avez aucune raison de penser que ce sont les bonnes clefs 
+(détaillez l’attaque “man in the middle”).
+
+    - Le principe de l'attaque "man in the middle" est que quelqu'un se positionne entre deux interlocuteurs pour intercepter les messages
+    d'un expéditeur ,les modifier et envoyé les messages modifier au destinataire.
+
+Quel est le lien entre l’identifiant d’une clef publique (keyID) et le fingerprint ?
+
+    - Le keyID est concaténé à la fin du fingerprint.
+
+Exercice 7
+
+Finalement, lorsque vous envoyez un message signé et chiffré à votre chargée de TP, avec quel algorithme et quelle clef est chiffré le message ?

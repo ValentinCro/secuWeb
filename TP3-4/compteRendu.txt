@@ -1,0 +1,92 @@
+Exercice 1
+
+Combien de requêtes est-ce que votre navigateur fait pour afficher la page, à combien de sites différents ?
+    - sous chrome : 57 requêtes, 3 sous domaines différents 
+    - sous tor : 68 requêtes, 4 sous domaines différents 
+
+combien de cookies avez-vous stocké ? 
+    - Aucun cookie sous tor
+    - sous chrome : 6 cookies de fr.wikipedia.org 3 cookies du site wikimedia.org
+
+à quoi servent les cookies des sites wikimedia.org et wikipedia.org ? A quoi correspondent les attributs suivants des cookies (expires, secures,
+httpOnly)
+    - wikimedia.org :
+        - CP : contient la valeur "H2" mais aucun détail sur son utilité
+            - expires : When the browsing session ends
+        - GeoIP : contient notre géolocalisation via l'IP
+            - expires : When the browsing session ends
+        - WMF-Last-Access : date de dernière connexion
+            - expires : Sunday, January 1, 2017 at 12:59:59 PM
+    - wikipedia.org :
+        - CP : contient la valeur "H2" mais aucun détail sur son utilité
+            - expires : When the browsing session ends
+        - GeoIP : contient notre géolocalisation via l'IP
+            - expires : When the browsing session ends
+        - WMF-Last-Access : date de dernière connexion
+            - expires : Sunday, January 1, 2017 at 1:00:00 PM
+        - frwikiGeoFeaturesUser : contient la valeur "null"
+            - expires : Tuesday, November 29, 2016 at 4:31:12 PM
+        - frwikiGeoFeaturesUser2 : contient une valeur hexadécimal "0ee105e0ca123eb4"
+            - expires : Wednesday, November 30, 2016 at 4:39:44 PM
+        - frwikimwuser-sessionId : contient une valeur hexadécimal "b702853b65ebb688"
+            - expires : When the browsing session ends
+secures et httpOnly ne sont pas présent.
+
+Allez sur le site http://www.fnac.com, combien avez-vous de requêtes faites par votre navigateur ? 
+    - 243 requêtes sur chrome
+    - 208 requêtes sur tor
+
+Que signifie Politique de même origine ou Same Origin Policy (en anglais) pour les cookies ? 
+    - Cela permet de vérifier l'origine du cookie si il vient de la même adresse que le serveur
+
+
+Exercice 2
+
+Allez sur la page http://www.univ-rouen.fr, analysez les pages demandées et les entêtes des requêtes. 
+En particulier, quelles informations sont données sur vous au site web ? 
+
+via chrome :
+
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding:gzip, deflate, sdch
+Accept-Language:fr,fr-FR;q=0.8
+Cookie:JSESSIONID=B36E6F8DAAE3322030CE05E60F289977; _pk_id.4.7430=7a1a96f11d2e683a.1480523746.1.1480523746.1480523746.; _pk_ses.4.7430=*
+User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36
+
+Le user agent indique "le navigateur" que l'ont utilise. Différentes informations destiné à définir la maniére d'échanger des données 
+(accept-language, accept-encoding, ...). Notre cookie de session
+
+via tor certaines informations comme le cookie ne sont pas transmise car tor n'enregistre pas les cookies.
+
+sous quelles formes ? de façon textuel en clair
+
+Inversement, quelles sont les informations envoyées par le site web ?
+    Le site web nous envoie le type du serveur (ici apache), l'état de la connexion
+
+Que signifie l’entête Location ? Dans notre cas Location signifie que la ressource demandée a changé de plaçe, le champ contient alors
+le nouvel emplacement où trouver la ressource
+
+Connectez-vous sur l’ENT, réessayez le site précédent, que se passe-t-il ?  
+On est directement redirigé sur la page connecté de l'entêtes
+
+ http://fr.wikipedia.org (pourquoi allez-vous directement sur le site en https ?) le serveur nous redirige vers l'adresse en https
+
+ Pour Greenweez.com le mot de passe est chiffré côté client, il n'est donc pas envoyé en clair dans la requête http
+
+ Pour dragonbleu le mot de passe est envoyé en clair dans la requête http.
+
+ Exercice 3 
+
+ Il ne faut jamais avoir confiance dans les données que renseigne l'utilisateur. De plus il faut toujours controler les
+ données envoyé par le client côté serveur.
+
+ Exercice 4 (TLS)
+
+Le protocole HTTPS est une version sécurisée de HTTP. Sur quel protocole de sécurité est-il fondé ? 
+Il est fondé sur le protocole de sécurité TLS (SSL)
+
+Quel type de certificat est utilisé ? 
+C'est un certificat d'authentification qui est utilisé
+
+Capturez une poignée de main TLS, retrouvez les différents messages échangés entre le client et le serveur.
+Retrouvez les certificats du serveur, les paramètres DH ou ECDH, la partie où le serveur s’authentifie.
